@@ -1,15 +1,18 @@
 ﻿using EFWelcomeApp;
+using Microsoft.EntityFrameworkCore;
 
 using (CompaniesDbContext context = new())
 {
-    //context.Database.EnsureDeleted();
+    //await context.Database.MigrateAsync();
+    context.Database.EnsureDeleted();
     //context.Database.EnsureCreated();
+    context.Database.Migrate();
 
     // CRUD - Create (Insert)
-    //Employee sam = new() { Name = "Sammy", DateBirth = new DateTime(2001, 6, 17) };
-    //Employee jim = new() { Name = "Jimmy", DateBirth = new DateTime(1997, 3, 2) };
-    //context.Employees.Add(sam);
-    //context.Employees.Add(jim);
+    Employee sam = new() { Name = "Sammy", DateBirth = new DateTime(2001, 6, 17), Salary = 90000 };
+    Employee jim = new() { Name = "Jimmy", DateBirth = new DateTime(1997, 3, 2), Salary = 80000 };
+    context.Employees.Add(sam);
+    context.Employees.Add(jim);
 
     // CRUD - Update (Update)
     //int id = 3;
@@ -25,7 +28,7 @@ using (CompaniesDbContext context = new())
     //if (employee is not null)
     //    context.Employees.Remove(employee);
 
-    //context.SaveChanges();
+    context.SaveChanges();
 }
 
 using (CompaniesDbContext context = new())
@@ -35,9 +38,9 @@ using (CompaniesDbContext context = new())
     //if (!context.Database.CanConnect()) return;
 
     var employees = context.Employees.ToList();
-    //Console.WriteLine("Employees:");
+    Console.WriteLine("Employees:");
 
-    //foreach (var employee in employees)
-    //    Console.WriteLine(employee);
+    foreach (var employee in employees)
+        Console.WriteLine(employee);
 }
 
